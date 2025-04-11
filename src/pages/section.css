@@ -1,0 +1,51 @@
+
+
+.section-title{
+    font-size: 130px;
+    position: absolute;
+    top: 10%;
+    left: 37%;
+    color: white;
+}
+
+
+.section-btn{
+    position: absolute;
+    top: 60%;
+    left: 55%;
+    transform: translateX(-60%); /* Center the buttons horizontally */
+    display: flex;
+    gap: 20px;
+    font-weight: bold;
+    
+}
+
+
+.section-btn1,.section-btn2{
+    padding: 35px 180px;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+
+
+}
+
+.section-btn1{
+    background-color: blue;
+}
+
+.section-btn2{
+    background-color: red;
+}
+
+.section-btn1:hover{
+    background-color: rgb(9, 9, 94);
+}
+
+.section-btn2:hover{
+    background-color: rgb(99, 5, 5);
+}
