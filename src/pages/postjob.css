@@ -1,0 +1,197 @@
+
+  
+  .postjob-info {
+    position: absolute;
+    top: 5%;
+    left: 20%;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .postjob-title {
+    font-size: 50px;
+    color: white;
+    margin-bottom: 30px;
+  }
+  
+  .postjob-search {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .postjob-search-input {
+    padding: 12px 15px;
+    font-size: 16px;
+    width: 1100px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #031425;
+    color: white;
+    transition: border-color 0.3s;
+  }
+  
+  .postjob-search-input:focus {
+    border-color: #007bff;
+  }
+  
+  .postjob-description-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .postjob-description-input {
+    padding: 12px 15px;
+    font-size: 16px;
+    width: 1100px;
+    height: 150px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #031425;
+    color: white;
+    resize: vertical;
+    transition: border-color 0.3s;
+  }
+  
+  .postjob-description-input:focus {
+    border-color: #007bff;
+  }
+  
+  .postjob-filter-section {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .postjob-filter-select {
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    outline: none;
+    background-color: #031425;
+    color: rgb(124, 114, 114);
+    transition: border-color 0.3s;
+    width: 480px;
+  }
+  
+  .postjob-filter-select:focus {
+    border-color: #007bff;
+  }
+  
+  .postjob-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .postjob-btn:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .postjob-preview-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 40px;
+    background-color: #031425;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    flex-wrap: wrap;
+    
+  }
+  
+  .postjob-editor,
+  .postjob-preview {
+    flex: 1;
+    min-width: 300px;
+    
+  }
+  
+  .postjob-editor-title,
+  .postjob-preview-title {
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  .postjob-quill {
+    background-color: transparent;
+    color: white;
+    border-radius: 8px;
+  }
+  
+  .postjob-preview-content {
+    background-color: transparent;
+    border: 2px white solid;
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 200px;
+    color: white;
+  }
+
+
+  /* ReactQuill Toolbar White Theming */
+.ql-toolbar.ql-snow {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label,
+.ql-toolbar.ql-snow .ql-picker-options,
+.ql-toolbar.ql-snow .ql-stroke,
+.ql-toolbar.ql-snow .ql-fill,
+.ql-toolbar.ql-snow .ql-picker {
+  color: white !important;
+  stroke: white !important;
+  fill: white !important;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label:hover,
+.ql-toolbar.ql-snow .ql-picker-options:hover,
+.ql-toolbar.ql-snow .ql-formats button:hover {
+  color: #ccc !important;
+  stroke: #ccc !important;
+}
+
+.ql-container.ql-snow {
+  border: 2px solid white;
+  color: white;
+  background-color: transparent;
+}
+
+.ql-editor {
+  color: white;
+}
+.ql-editor.ql-blank::before {
+  color: white !important;
+  opacity: 0.9; /* Optional: makes the placeholder slightly faded like default */
+}
+
+
+.postjob-submit{
+  padding: 15px;
+  width: 100%;
+  background-color: rgb(46, 83, 248);
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.postjob-submit:hover{
+   background-color: red;
+}
+  
+  
