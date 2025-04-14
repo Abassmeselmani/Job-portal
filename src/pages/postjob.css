@@ -194,4 +194,101 @@
    background-color: red;
 }
   
+.addCompany {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #031425;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  z-index: 999;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.addCompany h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: white;
+  
+}
+
+.addcompany-materials {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  
+}
+
+.addcompany-materials input[type="text"],
+.addcompany-materials input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #031425;
+  color: white;
+}
+
+.addCompany button {
+  background-color: #222;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 850px;
+}
+
+.addCompany button:hover {
+  background-color: #444;
+}
+.addcompany-materials input[type="file"] {
+  position: relative;
+  padding: 10px 15px;
+  background-color:  #031425;
+  color: #333;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.addcompany-materials input[type="file"]::file-selector-button {
+  padding: 8px 16px;
+  background-color:#07335f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.addcompany-materials input[type="file"]::file-selector-button:hover {
+  background-color: #444;
+}
+
+.addcompany-materials input[type="file"]:hover {
+  border-color: #888;
+}
+
+
   

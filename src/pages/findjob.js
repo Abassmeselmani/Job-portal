@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './findjob.css';
-
 import background from "../page1&navbarPic/backgroundpic.png";
+import { db } from '../firebaseConfig.js';
+import { collection, getDocs } from "firebase/firestore";
+import { FaHeart } from 'react-icons/fa'; // Import FaHeart icon
 
 function Findjob() {
+  const [jobs, setJobs] = useState([]);
+  const [likedJobs, setLikedJobs] = useState({}); // Track liked jobs
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "jobs"));
+        const jobsList = [];
+        querySnapshot.forEach((doc) => {
+          jobsList.push({ id: doc.id, ...doc.data() });
+        });
+        setJobs(jobsList);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  // Toggle heart like/unlike
+  const toggleLike = (jobId) => {
+    setLikedJobs((prevLikes) => ({
+      ...prevLikes,
+      [jobId]: !prevLikes[jobId], // Toggle the like status
+    }));
+  };
+
   return (
     <div className="findjob">
       <img className="gethired-background" src={background} alt="Background" />
@@ -44,9 +74,41 @@ function Findjob() {
           <button className="clear-filter-btn">Clear Filters</button>
         </div>
       </div>
-      <div className="finjob-results">
-        
 
+      <div className="finjob-results">
+        {jobs.length === 0 ? (
+          <p style={{ color: "#fff", padding: "20px" }}>No jobs found.</p>
+        ) : (
+          jobs.map((job) => (
+            <div className="job-card" key={job.id}>
+              <h2>{job.title}</h2>
+              
+              <p> {job.description}</p>
+              <button className="job-card-btn">More Details</button>
+
+              {/* Heart icon always visible */}
+              <button 
+                className="heart-btn" 
+                onClick={() => toggleLike(job.id)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: 0,
+                  marginLeft: "10px",
+                }}
+              >
+                <FaHeart
+                  style={{
+                    color: likedJobs[job.id] ? "red" : "gray",
+                    
+                    fontSize: "20px",
+                  }}
+                />
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
