@@ -1,39 +1,145 @@
-
-
-
-
+/* Navbar container */
 .navbar {
-    
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    position: absolute; 
-    top: 0; 
-    right: 0; 
-    width: 100%; 
-    padding: 10px 20px; 
-    background-color: transparent; 
-    z-index: 2000; 
-  }
-  
-  .navbar-logo {
-    width: auto;
-    height: 130px;
-    margin-left: 35px;
-    
-    
-  }
-  
-  .navbar-login {
-    padding: 10px 20px; 
-    font-size: 16px; 
-    background-color: rgb(6, 6, 65);
-    color: white;
-    border-radius: 10px;
-    z-index: -1;
-  }
-.navbar-login:hover{
-    background-color: rgb(117, 13, 13);
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  width: 100%; 
+  padding: 10px 20px; 
+  background-color: transparent; 
+  z-index: 2000; 
 }
 
+/* Navbar logo */
+.navbar-logo {
+  width: auto;
+  height: 130px;
+  margin-left: 35px;
+}
+
+/* Login button styling */
+.navbar-login {
+  padding: 10px 20px; 
+  font-size: 16px; 
+  background-color: rgb(6, 6, 65);
+  color: white;
+  border-radius: 10px;
+  z-index: 1;
+  transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+/* Hover effect for the login button */
+.navbar-login:hover {
+  background-color: rgb(117, 13, 13);
+}
+
+/* Login button when user is logged in, make it rounded */
+.navbar-login.rounded {
+  border-radius: 150px; /* Makes it fully rounded */
+}
+
+.user-links {
+  position: absolute;
+  top: 100px;
+  right: 20px;
+  background: rgba(220, 3, 248, 0.1);
+  backdrop-filter: blur(12px);
   
+  padding: 30px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  animation: fadeIn 0.4s ease-in-out;
+  z-index: 1000;
+  padding: 50px;
+  
+}
+
+.navbar-login.rounded + .user-links {
+  display: flex;
+  
+  
+}
+
+.user-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  width: 200px;
+  height: 50px;
+  
+}
+
+.user-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: rgb(255, 72, 72);
+  transition: width 0.3s ease-in-out;
+}
+
+.user-links a:hover {
+  color: rgb(255, 72, 72);
+}
+
+.user-links a:hover::after {
+  width: 100%;
+}
+
+.user-links button {
+  background: none;
+  color: #fff;
+  border: none;
+  padding: 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  position: relative;
+  transition: color 0.3s ease-in-out;
+}
+
+.user-links button::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: rgb(255, 72, 72);
+  transition: width 0.3s ease-in-out;
+}
+
+.user-links button:hover {
+  color: rgb(117, 13, 13);
+}
+
+.user-links button:hover::after {
+  width: 300%;
+}
+
+
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

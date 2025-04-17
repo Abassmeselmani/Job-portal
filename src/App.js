@@ -10,12 +10,14 @@ import Moredetails from './pages/moredetails';
 import { AuthProvider } from './context';
 import Login from './pages/login';
 import Signup from './pages/signup';
+import Savedjobs from './pages/savedjobs';
+import Myjobs from './pages/myjobs';
 
 function App() {
   return (
      <AuthProvider>
     <div>
-     
+      <Login />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -25,6 +27,8 @@ function App() {
         <Route path="/moredetails/:id" element={<Moredetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/savedjobs" element={<Savedjobs />} />
+        <Route path="/myjobs" element={<Myjobs />} />
 
 
       </Routes>

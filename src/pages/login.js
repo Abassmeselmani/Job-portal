@@ -4,7 +4,7 @@ import { useAuth } from "../context";
 import Google from "../page1&navbarPic/googlelogo.png";
 import "./login.css";
 
-function Login() {
+function Login({ isModal = false, onClose }) {
   const navigate = useNavigate();
   const { login, signInWithGoogle } = useAuth();
 
@@ -14,12 +14,11 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       await login(email, password);
-      navigate("/");
+      if (isModal && onClose) onClose();
+      else navigate("/");
     } catch (error) {
-      console.log("Login error:", error);
       if (error.code === "auth/wrong-password") {
         setErrorMessage("Incorrect password. Please try again.");
       } else if (error.code === "auth/user-not-found") {
@@ -31,21 +30,23 @@ function Login() {
   };
 
   const handleSignup = () => {
+    if (isModal && onClose) onClose();
     navigate("/signup");
   };
 
   return (
-    <div className="background-wrapper">
-      <div className="login-container">
+    <div className={isModal ? "modal-overlay" : "background-wrapper"}>
+      <div className={isModal ? "modal-content" : "login-container"}>
         <div className="login">
+          {isModal && (
+            <button className="close-btn" onClick={onClose}>✕</button>
+          )}
           <h1 className="login-title">Login</h1>
           <h1 className="login-descript">Welcome Back sign in to continue</h1>
-
           <button className="google-btn" onClick={signInWithGoogle}>
             <img src={Google} alt="Google logo" className="google-icon" />
             Sign in with Google
           </button>
-
           <form className="login-form" onSubmit={handleLogin}>
             <div className="form-group">
               <label htmlFor="email">Email address</label>
@@ -58,7 +59,6 @@ function Login() {
                 required
               />
             </div>
-
             <div className="form-group">
               <label htmlFor="password">Password:</label>
               <input
@@ -70,16 +70,11 @@ function Login() {
                 required
               />
             </div>
-
             {errorMessage && <p className="error-message">{errorMessage}</p>}
-
             <button type="submit" className="login-btn">Login</button>
-
             <p className="login-ask">
               Don't have an account?{" "}
-              <a onClick={handleSignup} className="link" href="#">
-                Register
-              </a>
+              <a onClick={handleSignup} className="link" href="#">Register</a>
             </p>
           </form>
         </div>
