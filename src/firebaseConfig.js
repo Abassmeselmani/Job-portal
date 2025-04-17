@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";  // <-- 🔥 Add this line
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth"; // <-- ✅ Add this
 
 const firebaseConfig = {
   apiKey: "AIzaSyB-VoiWzcxsrVvwAZGwd52FzI1cxgh7Khs",
@@ -15,6 +17,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getFirestore(app);  // <-- 🔥 Add this
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider(); // <-- ✅ Add this
 
-export { db };  // <-- 🔥 Export Firestore for use in other files
+export { db, auth , provider}; // ✅ Now both are defined

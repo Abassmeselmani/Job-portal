@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from "react";
-import './findjob.css';
-import background from "../page1&navbarPic/backgroundpic.png";
-import { db } from '../firebaseConfig.js';
+import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { FaHeart } from 'react-icons/fa'; // Import FaHeart icon
+import { FaHeart } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { db } from "../firebaseConfig";
+
+import background from "../page1&navbarPic/backgroundpic.png";
+import "./findjob.css";
 
 function Findjob() {
   const [jobs, setJobs] = useState([]);
-  const [likedJobs, setLikedJobs] = useState({}); // Track liked jobs
+  const [likedJobs, setLikedJobs] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "jobs"));
-        const jobsList = [];
-        querySnapshot.forEach((doc) => {
-          jobsList.push({ id: doc.id, ...doc.data() });
-        });
+        const jobsList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setJobs(jobsList);
       } catch (error) {
         console.error("Error fetching jobs:", error);
@@ -26,11 +29,10 @@ function Findjob() {
     fetchJobs();
   }, []);
 
-  // Toggle heart like/unlike
   const toggleLike = (jobId) => {
-    setLikedJobs((prevLikes) => ({
+    setLikedJobs(prevLikes => ({
       ...prevLikes,
-      [jobId]: !prevLikes[jobId], // Toggle the like status
+      [jobId]: !prevLikes[jobId],
     }));
   };
 
@@ -42,7 +44,11 @@ function Findjob() {
         <h1 className="findjob-title">Latest Jobs</h1>
 
         <div className="search-section">
-          <input className="search-section-search" type="text" placeholder="Search Jobs by title" />
+          <input
+            className="search-section-search"
+            type="text"
+            placeholder="Search Jobs by title"
+          />
           <button className="search-section-btn">Search</button>
         </div>
 
@@ -82,13 +88,14 @@ function Findjob() {
           jobs.map((job) => (
             <div className="job-card" key={job.id}>
               <h2>{job.title}</h2>
-              
-              <p> {job.description}</p>
-              <button className="job-card-btn">More Details</button>
+              <p>{job.description}</p>
 
-              {/* Heart icon always visible */}
-              <button 
-                className="heart-btn" 
+              <Link to={`/moredetails/${job.id}`}>
+                <button className="job-card-btn">More Details</button>
+              </Link>
+
+              <button
+                className="heart-btn"
                 onClick={() => toggleLike(job.id)}
                 style={{
                   background: "none",
@@ -101,7 +108,6 @@ function Findjob() {
                 <FaHeart
                   style={{
                     color: likedJobs[job.id] ? "red" : "gray",
-                    
                     fontSize: "20px",
                   }}
                 />
