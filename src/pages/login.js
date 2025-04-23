@@ -4,7 +4,7 @@ import { useAuth } from "../context";
 import Google from "../page1&navbarPic/googlelogo.png";
 import "./login.css";
 
-function Login({ isModal = false, onClose }) {
+function Login({ isModal = false, onClose, onSwitchToSignup }) {
   const navigate = useNavigate();
   const { login, signInWithGoogle } = useAuth();
 
@@ -27,11 +27,6 @@ function Login({ isModal = false, onClose }) {
         setErrorMessage("An error occurred. Please try again.");
       }
     }
-  };
-
-  const handleSignup = () => {
-    if (isModal && onClose) onClose();
-    navigate("/signup");
   };
 
   return (
@@ -74,7 +69,7 @@ function Login({ isModal = false, onClose }) {
             <button type="submit" className="login-btn">Login</button>
             <p className="login-ask">
               Don't have an account?{" "}
-              <a onClick={handleSignup} className="link" href="#">Register</a>
+              <a onClick={onSwitchToSignup} className="link" href="#">Register</a>
             </p>
           </form>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, getDocs, setDoc, Timestamp  , doc} from "firebase/firestore";
 import { FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebaseConfig";
@@ -29,11 +29,32 @@ function Findjob() {
     fetchJobs();
   }, []);
 
-  const toggleLike = (jobId) => {
-    setLikedJobs(prevLikes => ({
-      ...prevLikes,
-      [jobId]: !prevLikes[jobId],
-    }));
+  const toggleLike = async (jobId) => {
+    const newLikedJobs = {
+      ...likedJobs,
+      [jobId]: !likedJobs[jobId],
+    };
+
+    setLikedJobs(newLikedJobs);
+
+    if (!likedJobs[jobId]) {
+      // Save liked job
+      try {
+        await setDoc(doc(db, "likedJobs", jobId), {
+          jobId: jobId,
+          timestamp: new Date(),
+        });
+      } catch (error) {
+        console.error("Error saving liked job:", error);
+      }
+    } else {
+      // Remove liked job
+      try {
+        await deleteDoc(doc(db, "likedJobs", jobId)); // Delete liked job from Firestore
+      } catch (error) {
+        console.error("Error deleting liked job:", error);
+      }
+    }
   };
 
   return (
@@ -93,7 +114,7 @@ function Findjob() {
               <Link to={`/moredetails/${job.id}`}>
                 <button className="job-card-btn">More Details</button>
               </Link>
-
+             
               <button
                 className="heart-btn"
                 onClick={() => toggleLike(job.id)}

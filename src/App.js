@@ -17,7 +17,7 @@ function App() {
   return (
      <AuthProvider>
     <div>
-      <Login />
+      
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

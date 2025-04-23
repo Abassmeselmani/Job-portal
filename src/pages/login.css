@@ -100,7 +100,7 @@ label {
     font-weight: bold;             /* Make text bold */
     color: white;                   /* Text color */
     margin-bottom: 8px; 
-    margin-left: -60px;           /* Space below the label */
+    margin-left: -220px;           /* Space below the label */
     display: block;                /* Make the label block level */
     font-family: Arial, sans-serif; /* Change font family */
   }
