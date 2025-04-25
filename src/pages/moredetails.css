@@ -37,3 +37,52 @@
     color: red;
     margin-top: -10px;
   }
+
+
+  .apply-btn{
+    width: 1550px;
+    padding: 10px;
+    font-weight: bold;
+    background-color: rgb(11, 11, 221);
+    color:  white;
+    font-size: 20px;
+    margin-left: 40px;
+  }
+
+  .applied{
+    width: 1550px;
+    padding: 10px;
+    font-weight: bold;
+    background-color: red;
+    color:  white;
+    font-size: 20px;
+    margin-left: 40px;
+
+  }
+
+
+  .application-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: rgb(7, 7, 58);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .application-form input,
+  .application-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .final-apply-btn {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

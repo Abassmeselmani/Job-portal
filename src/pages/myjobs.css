@@ -1,0 +1,62 @@
+.application-card {
+    background: white;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+
+  .applyDetails {
+    position: relative;
+    z-index: 1;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .application-card {
+    background-color: #13294b;
+    border-left: 5px solid #ff3c3c;
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  .application-card h3 {
+    font-size: 1.7rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+  
+  .application-meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .application-meta p {
+    color: #d1d9e6;
+    font-size: 1rem;
+    margin: 0;
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .divider {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 1rem 0;
+  }
+  
+  .timestamp {
+    color: #ffffffa1;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  
