@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { collection, deleteDoc, getDocs, setDoc, Timestamp  , doc} from "firebase/firestore";
+import { collection, deleteDoc, getDocs, setDoc, doc } from "firebase/firestore";
 import { FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebaseConfig";
+import { auth } from "../firebaseConfig";
 
 import background from "../page1&navbarPic/backgroundpic.png";
 import "./findjob.css";
@@ -10,6 +11,9 @@ import "./findjob.css";
 function Findjob() {
   const [jobs, setJobs] = useState([]);
   const [likedJobs, setLikedJobs] = useState({});
+  const [joblooptitle, setJoblooptitle] = useState(""); // For title search
+  const [selectedCountry, setSelectedCountry] = useState(""); // For country filter
+  const [selectedPosition, setSelectedPosition] = useState(""); // For position filter
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +47,8 @@ function Findjob() {
         await setDoc(doc(db, "likedJobs", jobId), {
           jobId: jobId,
           timestamp: new Date(),
+          userId: auth.currentUser.uid, // ✅ Save the user ID
+          savedAt: new Date(),
         });
       } catch (error) {
         console.error("Error saving liked job:", error);
@@ -57,6 +63,15 @@ function Findjob() {
     }
   };
 
+  // Filter jobs based on title, country, and position
+  const filteredJobs = jobs.filter((job) => {
+    return (
+      job.title.toLowerCase().includes(joblooptitle.toLowerCase()) &&
+      (selectedCountry ? job.country === selectedCountry : true) &&
+      (selectedPosition ? job.position === selectedPosition : true)
+    );
+  });
+
   return (
     <div className="findjob">
       <img className="gethired-background" src={background} alt="Background" />
@@ -66,6 +81,8 @@ function Findjob() {
 
         <div className="search-section">
           <input
+            value={joblooptitle}
+            onChange={(e) => setJoblooptitle(e.target.value)}
             className="search-section-search"
             type="text"
             placeholder="Search Jobs by title"
@@ -74,7 +91,11 @@ function Findjob() {
         </div>
 
         <div className="filter-section">
-          <select className="filter-select">
+          <select
+            className="filter-select"
+            value={selectedCountry}
+            onChange={(e) => setSelectedCountry(e.target.value)}
+          >
             <option value="">Select Country</option>
             <option value="usa">United States</option>
             <option value="canada">Canada</option>
@@ -85,7 +106,11 @@ function Findjob() {
             <option value="australia">Australia</option>
           </select>
 
-          <select className="filter-select">
+          <select
+            className="filter-select"
+            value={selectedPosition}
+            onChange={(e) => setSelectedPosition(e.target.value)}
+          >
             <option value="">Select CS Position</option>
             <option value="frontend">Frontend Developer</option>
             <option value="backend">Backend Developer</option>
@@ -98,15 +123,15 @@ function Findjob() {
             <option value="devops">DevOps Engineer</option>
           </select>
 
-          <button className="clear-filter-btn">Clear Filters</button>
+          <button className="clear-filter-btn" onClick={() => {setSelectedCountry(""); setSelectedPosition(""); setJoblooptitle("");}}>Clear Filters</button>
         </div>
       </div>
 
       <div className="finjob-results">
-        {jobs.length === 0 ? (
+        {filteredJobs.length === 0 ? (
           <p style={{ color: "#fff", padding: "20px" }}>No jobs found.</p>
         ) : (
-          jobs.map((job) => (
+          filteredJobs.map((job) => (
             <div className="job-card" key={job.id}>
               <h2>{job.title}</h2>
               <p>{job.description}</p>
@@ -114,7 +139,7 @@ function Findjob() {
               <Link to={`/moredetails/${job.id}`}>
                 <button className="job-card-btn">More Details</button>
               </Link>
-             
+
               <button
                 className="heart-btn"
                 onClick={() => toggleLike(job.id)}

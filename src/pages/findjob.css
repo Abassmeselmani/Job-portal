@@ -104,37 +104,64 @@
   }
   
   .job-card {
+    position: relative;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 30px 4px 20px rgba(253, 2, 2, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    cursor: pointer;
+    border-radius: 12px;
     background-color: #031425;
-    border: 3px solid white;
-  
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(253, 2, 2, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.5s ease;
+    cursor: pointer;
+    height: 300px;
   }
   
   .job-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(253, 2, 2, 0.4);
+    border: 2px solid rgb(255, 0, 128);
+  }
+  
+  .job-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(45deg, red, blue, purple, yellow, cyan);
+    background-size: 400% 400%;
+    animation: animateBorder 6s linear infinite;
+    z-index: 0;
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+  }
+  
+  @keyframes animateBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
   
   .job-card h2 {
     font-size: 1.8rem;
-    position: relative;
-    top: -30px;
     color: white;
-    margin-bottom: 10px;
-    padding : 10px 10px ;
-    border-bottom: 2px solid  ;
-    
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     font-weight: bold;
+    z-index: 1;
+    position: relative;
   }
   
   .job-card p {
     font-size: 1rem;
-    color: white;
-    margin: 5px 0;
+    color: #ccc;
+    margin: 10px 0;
+    z-index: 1;
+    position: relative;
   }
   
   .job-card p strong {
@@ -143,14 +170,15 @@
   
   .job-card .job-description {
     margin-top: 20px;
-  
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #555;
+    color: #aaa;
+    z-index: 1;
+    position: relative;
   }
   
   .job-card .job-description p {
-    margin: 10px 10;
+    margin: 10px 0;
   }
   
   .job-card .job-description a {
@@ -164,6 +192,54 @@
     color: #2a4d59;
   }
   
+  /* Fix the button position */
+  .job-card-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    width: 230px;
+    padding: 10px;
+    border-radius: 7px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border: none;
+    color: white;
+    transition: background 0.4s ease, transform 0.3s ease;
+    z-index: 1;
+  }
+  
+  .job-card-btn:hover {
+    background: linear-gradient(135deg, #a777e3, #6e8efb);
+    transform: scale(1.05);
+  }
+  
+  /* Heart button styling */
+  .heart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    top: 290px;
+    right: 25px;
+    z-index: 2;
+    
+  }
+  
+  .heart-btn svg {
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  
+  .heart-btn.liked svg {
+    color: red;
+  }
+  
+  .heart-btn.not-liked svg {
+    color: gray;
+  }
+  
+  /* Company logo */
   .job-card .company-logo {
     width: 50px;
     height: 50px;
@@ -173,18 +249,22 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   
+  /* Company info */
   .job-card .company-info {
     display: flex;
     align-items: center;
     margin-top: 15px;
+    z-index: 1;
+    position: relative;
   }
   
   .job-card .company-info p {
     margin-left: 10px;
     font-weight: bold;
-    color: #333;
+    color: #ccc;
   }
   
+  /* Mobile responsiveness */
   @media (max-width: 768px) {
     .finjob-results {
       padding: 20px;
@@ -197,43 +277,12 @@
     .job-card h2 {
       font-size: 1.5rem;
     }
-  }
-
-  /* Styling for the heart button */
-.heart-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-  top: 5px;
-  right: 4px;
-}
-
-/* Styling for the heart icon */
-.heart-btn svg {
-  font-size: 24px;
-  transition: color 0.3s ease;
-}
-
-/* When heart is liked (filled) */
-.heart-btn.liked svg {
-  color: red;
-}
-
-/* When heart is not liked (outline) */
-.heart-btn.not-liked svg {
-  color: gray;
-}
-
-.job-card-btn{
-  position: relative;
   
-  width: 230px;
-  padding: 10px;
-  border-radius: 7px;
-  font-weight: bold;
-  background-color: gray;
-  color: white;
-
-}
-
+    .job-card-btn {
+      width: 180px;
+      padding: 8px;
+      bottom: 15px;
+      right: 15px;
+    }
+  }
+  

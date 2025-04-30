@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../firebaseConfig";
+import { db, auth } from "../firebaseConfig"; // ✅ Import auth properly
 import { getDoc, doc, addDoc, collection, Timestamp } from "firebase/firestore";
 import background from "../page1&navbarPic/backgroundpic.png";
 import { useParams } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import "./moredetails.css";
+import "./moredetails.css"; // ✅ Remove "import au"
 
 function Moredetails() {
   const [job, setJob] = useState(null);
@@ -38,7 +38,6 @@ function Moredetails() {
 
   if (!job) return null;
 
-  // 🔴 This must be inside a function (not at the top level)
   const handleFinalApply = async () => {
     try {
       const applyData = {
@@ -47,9 +46,12 @@ function Moredetails() {
         skills,
         level,
         timestamp: Timestamp.now(),
+        userId: auth.currentUser.uid,  // ✅ Save the user ID
+        savedAt: new Date()             // ✅ Save when the user applied
       };
 
       await addDoc(collection(db, "applyDetails"), applyData);
+
       alert("Applied successfully!");
 
       setApplied(true);

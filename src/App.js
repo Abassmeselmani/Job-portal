@@ -12,6 +12,8 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import Savedjobs from './pages/savedjobs';
 import Myjobs from './pages/myjobs';
+import Notlogged from './pages/secure';
+import Loading from './pages/loadingpage';
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/savedjobs" element={<Savedjobs />} />
         <Route path="/myjobs" element={<Myjobs />} />
+        <Route path="/secure" element={<Notlogged />} />
+        <Route path="/loadingpage" element={<Loading />} />
+
 
 
       </Routes>

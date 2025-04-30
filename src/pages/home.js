@@ -50,7 +50,7 @@ function Home() {
       <div className='get-hired-part1'>
         <h1 className='gethired-title'>
           Find your dream job <span className='gethired-span'>and get</span>
-          <img className='get-hired-logo' src={logo} alt="Logo" />
+          <img onClick={() => navigate("/")} className='get-hired-logo' src={logo} alt="Logo" />
         </h1>
         <p className='gethired-part1-parag'>
           Explore thousands of job listings or find the perfect candidate

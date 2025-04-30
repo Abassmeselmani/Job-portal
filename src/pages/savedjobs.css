@@ -15,69 +15,103 @@
 }
 
 
-.job-card2{
-    position: relative;
-    right: 300px;
-    margin-top: 300px;
-    gap: 30px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 30px 4px 20px rgba(253, 2, 2, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    cursor: pointer;
-    background-color: #031425;
-    border: 3px solid white;
+.job-card2 {
+  position: relative;
+  right: 300px;
+  margin-top: 300px;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #031425;
+  border: 3px solid white;
+  box-shadow: 30px 4px 20px rgba(253, 2, 2, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.5s ease;
+  cursor: pointer;
+  min-height: 200px; /* 🔥 Increased card height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .job-card2:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  }
-  
-  .job-card2 h2 {
-    font-size: 1.8rem;
-    position: relative;
-    top: -30px;
-    color: white;
-    margin-bottom: 10px;
-    padding : 10px 10px ;
-    border-bottom: 2px solid  ;
-    
-    font-weight: bold;
-  }
-  
-  .job-card2 p {
-    font-size: 1rem;
-    color: white;
-    margin: 5px 0;
-  }
-  
-  .job-card2 p strong {
-    color: rgb(56, 17, 230);
-  }
-  
-  .job-card2 .job-description {
-    margin-top: 20px;
-  
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #555;
-  }
-  
-  .job-card2 .job-description p {
-    margin: 10px 10;
-  }
-  
-  .job-card2 .job-description a {
-    color: #3c6e71;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .job-card2 .job-description a:hover {
-    color: #2a4d59;
-  }
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 3px solid rgb(255, 0, 128);
+}
+
+.job-card2 h2 {
+  font-size: 1.8rem;
+  position: relative;
+  top: -30px;
+  color: white;
+  margin-bottom: 20px;
+  padding: 10px 10px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+}
+
+.job-card2 p {
+  font-size: 1rem;
+  color: white;
+  margin: 5px 0;
+}
+
+.job-card2 p strong {
+  color: rgb(56, 17, 230);
+}
+
+.job-card2 .job-description {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #aaa; /* Darker white for better readability */
+}
+
+.job-card2 .job-description p {
+  margin: 10px 0;
+}
+
+.job-card2 .job-description a {
+  color: #3c6e71;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.job-card2 .job-description a:hover {
+  color: #2a4d59;
+}
+
+/* 💥 New: Buttons and Heart aligned beside each other */
+.job-card2-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* "More Details" button style */
+.job-card2-btn {
+  width: 160px;
+  padding: 10px;
+  border-radius: 7px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  border: none;
+  color: white;
+  transition: background 0.4s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.job-card2-btn:hover {
+  background: linear-gradient(135deg, #a777e3, #6e8efb);
+  transform: scale(1.05);
+}
+
+/* Heart button style */
+
+
   
   .job-card2 .company-logo {
     width: 50px;

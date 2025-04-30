@@ -1,0 +1,35 @@
+
+  
+  
+  .loading-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 400px;
+    position:  absolute;
+    top: 30%;
+    right: 13%;
+  }
+  
+  .range-container {
+    width: 1200px;
+    height: 10px;
+    background-color: #1f2937;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .range-fill {
+    height: 100%;
+    background-color: #1e40af; /* dark blue */
+    transition: width 0.2s linear;
+  }
+  
+  .loading-content h1 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-top: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
