@@ -14,6 +14,8 @@ import Savedjobs from './pages/savedjobs';
 import Myjobs from './pages/myjobs';
 import Notlogged from './pages/secure';
 import Loading from './pages/loadingpage';
+import Posterjob from './pages/posterjob';
+import Moredetails2 from './pages/moredetals2';
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
         <Route path="/myjobs" element={<Myjobs />} />
         <Route path="/secure" element={<Notlogged />} />
         <Route path="/loadingpage" element={<Loading />} />
+        <Route path="/posterjob" element={<Posterjob />} />
+        <Route path="/moredetails2/:id" element={<Moredetails2 />} />
 
 
 

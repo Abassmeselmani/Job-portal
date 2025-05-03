@@ -54,7 +54,21 @@
     margin: 1rem 0;
   }
   
+.timstamp-status{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.timstamp-status-title{
+  margin-right: 450px;
+  color: #ffffffa1;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
   .timestamp {
+    
     color: #ffffffa1;
     font-size: 0.9rem;
     font-style: italic;

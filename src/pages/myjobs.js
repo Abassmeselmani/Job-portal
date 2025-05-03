@@ -63,10 +63,11 @@ function Myjobs() {
               </div>
 
               <hr className="divider" />
-
+              <div className="timstamp-status">
               <p className="timestamp">
                 Applied on: {new Date(app.timestamp?.seconds * 1000).toLocaleString()}
               </p>
+              <p className="timstamp-status-title">Status: </p></div>
             </div>
           ))
         )}

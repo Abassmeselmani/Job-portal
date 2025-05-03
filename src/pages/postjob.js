@@ -3,9 +3,12 @@ import './postjob.css';
 import background from "../page1&navbarPic/backgroundpic.png";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { auth } from "../firebaseConfig.js";
+import { getAuth } from "firebase/auth";
 
 import { db } from '../firebaseConfig.js';
 import { collection, addDoc } from 'firebase/firestore';
+
 
 function Postjob() {
   const [editorContent, setEditorContent] = useState("");
@@ -18,6 +21,8 @@ function Postjob() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const auth = getAuth();
+    const user = auth.currentUser;
 
     const jobData = {
       title: jobTitle,
@@ -25,7 +30,9 @@ function Postjob() {
       location: jobLocation,
       company: companyName,
       content: editorContent,
-      timestamp: new Date()
+      timestamp: new Date(),
+      posterId: user.uid, // ✅ Store UID here
+      posterEmail: user.email 
     };
 
     try {

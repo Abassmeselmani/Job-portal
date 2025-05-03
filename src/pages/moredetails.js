@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { db, auth } from "../firebaseConfig"; // ✅ Import auth properly
+import { db, auth } from "../firebaseConfig";
 import { getDoc, doc, addDoc, collection, Timestamp } from "firebase/firestore";
 import background from "../page1&navbarPic/backgroundpic.png";
 import { useParams } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import "./moredetails.css"; // ✅ Remove "import au"
+import "./moredetails.css";
 
 function Moredetails() {
   const [job, setJob] = useState(null);
-  const { id } = useParams();
+  const { id } = useParams(); // Get job ID from URL params
 
   const [formVisible, setFormVisible] = useState(false);
   const [applied, setApplied] = useState(false);
@@ -18,6 +18,7 @@ function Moredetails() {
   const [level, setLevel] = useState("Beginner");
   const [resume, setResume] = useState(null);
 
+  // Fetch job data from Firestore using job ID
   useEffect(() => {
     const fetchJob = async () => {
       try {
@@ -38,6 +39,7 @@ function Moredetails() {
 
   if (!job) return null;
 
+  // Handle final application submission
   const handleFinalApply = async () => {
     try {
       const applyData = {
@@ -46,21 +48,24 @@ function Moredetails() {
         skills,
         level,
         timestamp: Timestamp.now(),
-        userId: auth.currentUser.uid,  // ✅ Save the user ID
-        savedAt: new Date()             // ✅ Save when the user applied
+        userId: auth.currentUser.uid,
+        userName: auth.currentUser.displayName || "Anonymous",
+        status: "Applied", // Initial status
+        savedAt: new Date(),
       };
-
-      await addDoc(collection(db, "applyDetails"), applyData);
-
+  
+      // Save to subcollection inside the specific job document
+      await addDoc(collection(db, "jobs", job.id, "applications"), applyData);
+  
       alert("Applied successfully!");
-
+  
       setApplied(true);
       setFormVisible(false);
     } catch (error) {
       console.error("Error applying:", error);
     }
   };
-
+  
   return (
     <div className="Moredetails">
       <img className="gethired-background" src={background} alt="Background" />
@@ -90,6 +95,7 @@ function Moredetails() {
             dangerouslySetInnerHTML={{ __html: job.content }}
           />
 
+          {/* Apply Button */}
           <button
             className={`apply-btn ${applied ? "applied" : ""}`}
             onClick={() => {
@@ -100,7 +106,8 @@ function Moredetails() {
             {applied ? "Applied" : "Apply"}
           </button>
 
-          {formVisible && (
+          {/* Application Form */}
+          {formVisible && !applied && (
             <div className="application-form">
               <h2>Apply for the Job</h2>
 
