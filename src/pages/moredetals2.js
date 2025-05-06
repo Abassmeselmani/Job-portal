@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { db } from "../firebaseConfig";
-import { getDoc, doc, getDocs, collection, query, where, updateDoc } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  getDocs,
+  collection,
+  query,
+  where,
+  updateDoc,
+} from "firebase/firestore";
 import background from "../page1&navbarPic/backgroundpic.png";
 import { useParams } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -9,7 +17,7 @@ import "./moredetails2.css";
 
 function Moredetails2() {
   const [job, setJob] = useState(null);
-  const [applicants, setApplicants] = useState([]);  // New state for applicants
+  const [applicants, setApplicants] = useState([]);
   const { id } = useParams();
   const { user } = useContext(AuthContext);
 
@@ -36,14 +44,14 @@ function Moredetails2() {
   useEffect(() => {
     const fetchApplicants = async () => {
       if (!job?.id) return;
-  
+
       try {
         const applicantsQuery = query(
           collection(db, "applyDetails"),
           where("jobId", "==", job.id)
         );
         const querySnapshot = await getDocs(applicantsQuery);
-        const applicantsData = querySnapshot.docs.map(doc => ({
+        const applicantsData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -52,7 +60,7 @@ function Moredetails2() {
         console.error("Error fetching applicants:", error);
       }
     };
-  
+
     fetchApplicants();
   }, [job?.id]);
 
@@ -61,8 +69,8 @@ function Moredetails2() {
     try {
       const applicantRef = doc(db, "applyDetails", applicantId);
       await updateDoc(applicantRef, { status: newStatus });
-      setApplicants(prevApplicants =>
-        prevApplicants.map(applicant =>
+      setApplicants((prevApplicants) =>
+        prevApplicants.map((applicant) =>
           applicant.id === applicantId
             ? { ...applicant, status: newStatus }
             : applicant
@@ -112,33 +120,41 @@ function Moredetails2() {
                 <div key={index} className="applicant-card">
                   <div className="applicant-info">
                     <div className="applicant-header">
-                      <h3>{applicant.userName}</h3> {/* Assuming you save user's name */}
+                      <h3>{applicant.userName}</h3>
                     </div>
+
                     <div className="applicant-details">
-                      <div className="detail-item">
-                        <span><strong>Experience:</strong> {applicant.experience} years</span>
+                      <div className="detail-row">
+                        <div className="detail-item">
+                          <strong>Level:</strong> {applicant.level}
+                        </div>
+                        <div className="detail-item">
+                          <strong>Skills:</strong> {applicant.skills}
+                        </div>
+                        
                       </div>
+
+                      
                       <div className="detail-item">
-                        <span><strong>Level:</strong> {applicant.level}</span>
+                        <strong>Applied At:</strong>{" "}
+                        {new Date(
+                          applicant.timestamp.seconds * 1000
+                        ).toLocaleString()}
                       </div>
+
                       <div className="detail-item">
-                        <span><strong>Skills:</strong> {applicant.skills}</span>
-                      </div>
-                      <div className="detail-item">
-                        <span><strong>Applied At:</strong> {new Date(applicant.timestamp.seconds * 1000).toLocaleString()}</span>
-                      </div>
-                      <div className="detail-item">
-                        <span><strong>Status: </strong>
-                          <select
-                            value={applicant.status || "Applied"} // Default to "Applied"
-                            onChange={(e) => handleStatusChange(applicant.id, e.target.value)}
-                          >
-                            <option value="Applied">Applied</option>
-                            <option value="Hired">Hired</option>
-                            <option value="Interviewing">Interviewing</option>
-                            <option value="Rejecting">Rejecting</option>
-                          </select>
-                        </span>
+                        <strong>Status:</strong>{" "}
+                        <select
+                          value={applicant.status || "Applied"}
+                          onChange={(e) =>
+                            handleStatusChange(applicant.id, e.target.value)
+                          }
+                        >
+                          <option value="Applied">Applied</option>
+                          <option value="Hired">Hired</option>
+                          <option value="Interviewing">Interviewing</option>
+                          <option value="Rejecting">Rejecting</option>
+                        </select>
                       </div>
                     </div>
                   </div>

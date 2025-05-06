@@ -49,23 +49,22 @@ function Moredetails() {
         level,
         timestamp: Timestamp.now(),
         userId: auth.currentUser.uid,
-        userName: auth.currentUser.displayName || "Anonymous",
-        status: "Applied", // Initial status
+        userName: auth.currentUser.displayName,  // Save the user ID of the applicant
         savedAt: new Date(),
+        jobId: job.id            // Save when the user applied
       };
-  
-      // Save to subcollection inside the specific job document
-      await addDoc(collection(db, "jobs", job.id, "applications"), applyData);
-  
+
+      await addDoc(collection(db, "applyDetails"), applyData);  // Save to Firestore
+
       alert("Applied successfully!");
-  
-      setApplied(true);
-      setFormVisible(false);
+
+      setApplied(true);  // Mark as applied
+      setFormVisible(false);  // Hide form after applying
     } catch (error) {
       console.error("Error applying:", error);
     }
   };
-  
+
   return (
     <div className="Moredetails">
       <img className="gethired-background" src={background} alt="Background" />

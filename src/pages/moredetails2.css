@@ -1,0 +1,73 @@
+h2 {
+    margin-top: 40px;
+    color: red; /* Dark blue */
+    font-size: 1.8rem;
+    border-bottom: 2px solid #003366;
+    padding-bottom: 5px;
+  }
+  
+  .applicants-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+  }
+  
+  .applicant-card {
+    background-color: #003366;
+    border-left: 5px solid #cc0000; /* Red accent */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.15);
+    transition: transform 0.2s ease;
+  }
+  
+  .applicant-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .applicant-header h3 {
+    margin: 0 0 10px 0;
+    color: white;
+    font-size: 1.4rem;
+  }
+  
+  .applicant-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .detail-item {
+    font-size: 1rem;
+    color: white;
+  }
+  
+  .detail-item strong {
+    color: #cc0000; /* Red */
+  }
+  
+  select {
+    padding: 6px 10px;
+    border: 1px solid #003366;
+    border-radius: 6px;
+    background-color: #f8f8f8;
+    color: #003366;
+    font-weight: bold;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #cc0000;
+  }
+  

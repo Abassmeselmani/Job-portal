@@ -1,47 +1,46 @@
 import React, { useState, useEffect, useContext } from "react";
 import background from "../page1&navbarPic/backgroundpic.png";
-import { collection, getDocs, query, where } from "firebase/firestore"; // 🛠️ Added query, where
-import { db, auth } from "../firebaseConfig"; // 🛠️ Also import auth
+import { collection, query, where, onSnapshot } from "firebase/firestore"; // 🛠️ onSnapshot for real-time
+import { db, auth } from "../firebaseConfig"; // 🛠️ Import auth
 import "./myjobs.css";
 import Notlogged from "./secure";
 import Loading from "./loadingpage";
-
 
 import { AuthContext } from "../context";
 
 function Myjobs() {
   const [applyDetails, setApplyDetails] = useState([]);
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
+  // Fetch job applications and listen for real-time changes
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        if (!auth.currentUser) return; // 🛡️ Safety check
+    const fetchJobs = () => {
+      if (!auth.currentUser) return; // 🛡️ Safety check
 
-        const q = query(
-          collection(db, "applyDetails"),
-          where("userId", "==", auth.currentUser.uid) // 🛠️ Filter by userId
-        );
+      const q = query(
+        collection(db, "applyDetails"),
+        where("userId", "==", auth.currentUser.uid) // 🛠️ Filter by userId
+      );
 
-        const querySnapshot = await getDocs(q);
+      // Real-time listener to fetch data and reflect updates
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const applyList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
 
-        setApplyDetails(applyList);
-      } catch (error) {
-        console.error("Error fetching apply details:", error);
-      }
+        setApplyDetails(applyList); // Update state with real-time data
+      });
+
+      return () => unsubscribe(); // Clean up listener on unmount
     };
 
     fetchJobs();
   }, []);
 
   if (!user) {
-      return <Notlogged />;
-    }
-    
+    return <Notlogged />;
+  }
 
   return (
     <div className="myjobs">
@@ -50,7 +49,7 @@ function Myjobs() {
 
       <div className="applyDetails">
         {applyDetails.length === 0 ? (
-          <Loading/>
+          <Loading />
         ) : (
           applyDetails.map((app) => (
             <div key={app.id} className="application-card">
@@ -64,10 +63,13 @@ function Myjobs() {
 
               <hr className="divider" />
               <div className="timstamp-status">
-              <p className="timestamp">
-                Applied on: {new Date(app.timestamp?.seconds * 1000).toLocaleString()}
-              </p>
-              <p className="timstamp-status-title">Status: </p></div>
+                <p className="timestamp">
+                  Applied on: {new Date(app.timestamp?.seconds * 1000).toLocaleString()}
+                </p>
+                <p className="timstamp-status-title">
+                  Status: {app.status || "Applied"}
+                </p>
+              </div>
             </div>
           ))
         )}
